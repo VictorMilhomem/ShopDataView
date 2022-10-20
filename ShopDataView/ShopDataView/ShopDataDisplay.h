@@ -25,7 +25,8 @@ namespace ShopDataView {
 		MySqlDataAdapter^ sqlDataAdapter = gcnew MySqlDataAdapter();
 		MySqlDataReader^ sqlReader;
 		DataTable^ sqlDt = gcnew DataTable();
-		Database^ DB = gcnew Database(host, port, databasename, user, password);
+		// Set the Database information (host, port, database, user, password)
+		Database^ DB = gcnew Database(host, port, database, user, password);
 		
 		
 	private: System::Windows::Forms::TextBox^ tbID;
@@ -622,6 +623,7 @@ namespace ShopDataView {
 		
 	}
 private: System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e) {
+	tbID->Text = "";
 	tbAddress->Text = "";
 	tbbZipCode->Text = "";
 	tbCpf->Text = "";
@@ -631,6 +633,8 @@ private: System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ 
 	tbPhone->Text = "";
 	tbSurname->Text = "";
 	tbSearch->Text = "";
+	tbProductId->Text = "";
+	comboBox1->Text = "";
 }
 private: System::Void dataGridView1_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	
@@ -640,12 +644,15 @@ private: System::Void dataGridView1_CellClick(System::Object^ sender, System::Wi
 		tbFirstName->Text = dataGridView1->SelectedRows[0]->Cells[1]->Value->ToString();
 		tbSurname->Text = dataGridView1->SelectedRows[0]->Cells[2]->Value->ToString();
 		tbPhone->Text = dataGridView1->SelectedRows[0]->Cells[3]->Value->ToString();
-		tbDateOfBirth->Text = dataGridView1->SelectedRows[0]->Cells[4]->Value->ToString();
-		tbDataReg->Text = dataGridView1->SelectedRows[0]->Cells[5]->Value->ToString();
-		tbCpf->Text = dataGridView1->SelectedRows[0]->Cells[6]->Value->ToString();
-		tbbZipCode->Text = dataGridView1->SelectedRows[0]->Cells[7]->Value->ToString();
-		tbAddress->Text = dataGridView1->SelectedRows[0]->Cells[8]->Value->ToString();
-		tbProductId->Text = dataGridView1->SelectedRows[0]->Cells[9]->Value->ToString();
+		tbCpf->Text = dataGridView1->SelectedRows[0]->Cells[4]->Value->ToString();
+		tbbZipCode->Text = dataGridView1->SelectedRows[0]->Cells[5]->Value->ToString();
+		tbAddress->Text = dataGridView1->SelectedRows[0]->Cells[6]->Value->ToString();
+		tbProductId->Text = dataGridView1->SelectedRows[0]->Cells[7]->Value->ToString();
+		comboBox1->Text = dataGridView1->SelectedRows[0]->Cells[8]->Value->ToString();
+		
+		tbDataReg->Text = dataGridView1->SelectedRows[0]->Cells[9]->Value->ToString();
+		tbDateOfBirth->Text = dataGridView1->SelectedRows[0]->Cells[10]->Value->ToString();
+		
 	}
 	catch (Exception^ e) {
 		MessageBox::Show(e->Message, "Exception", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);

@@ -5,7 +5,7 @@ DataTable^ Database::ConnectDB(MySqlConnection^ sqlCon, MySqlCommand^ cmd, MySql
 	sqlCon->ConnectionString = m_connectionString;
 	sqlCon->Open();
 	cmd->Connection = sqlCon;
-	cmd->CommandText = "select * from MyShop";
+	cmd->CommandText = "select * from " + m_database;
 	sqlReader = cmd->ExecuteReader();
 	sqlDt->Load(sqlReader);
 	sqlReader->Close();
@@ -21,7 +21,7 @@ DataTable^ Database::RefreshDB(MySqlConnection^ sqlCon, MySqlCommand^ cmd)
 	try {
 		sqlCon->ConnectionString = m_connectionString;
 		cmd->Connection = sqlCon;
-		MySqlDataAdapter^ sqlDataAdapter = gcnew MySqlDataAdapter("select * from MyShop", sqlCon);
+		MySqlDataAdapter^ sqlDataAdapter = gcnew MySqlDataAdapter("select * from " + m_database, sqlCon);
 		sqlDt = gcnew DataTable();
 		sqlDataAdapter->Fill(sqlDt);
 		//dataGridView1->DataSource = sqlDt;
@@ -44,7 +44,7 @@ System::Void Database::InsertDB(MySqlConnection^ sqlCon, MySqlCommand^ cmd, arra
 		sqlCon->ConnectionString = m_connectionString;
 		sqlCon->Open();
 		cmd->Connection = sqlCon;
-		cmd->CommandText = "insert into MyShop (ID, firstname, surname, phone, cpf, zipcode, address, productID, shipping, dateReg, dateBirth)" +
+		cmd->CommandText = "insert into " + m_database +  " (ID, firstname, surname, phone, cpf, zipcode, address, productID, shipping, dateReg, dateBirth)" +
 			" values ('" + values[0]->Text + "','" + values[1]->Text + "'" +
 			",'" + values[2]->Text + "'" +
 			",'" + values[3]->Text + "'" +
@@ -72,7 +72,7 @@ System::Void Database::UpdateDB(MySqlConnection^ sqlCon, MySqlCommand^ cmd, MySq
 		sqlCon->ConnectionString = m_connectionString;
 		cmd->Connection = sqlCon;
 
-		cmd->CommandText = "update MyShop set " +
+		cmd->CommandText = "update "+ m_database + " set " +
 			"firstname='" + values[1]->Text + "' ," + "surname='" + values[2]->Text + "', " +
 			"phone='" + values[3]->Text + "' ," + "cpf='" + values[4]->Text + "', " +
 			"zipcode='" + values[5]->Text + "' ," + "address='" + values[6]->Text + "', " +
@@ -97,7 +97,7 @@ System::Void Database::DeleteDB(MySqlConnection^ sqlCon, MySqlCommand^ cmd, MySq
 		sqlCon->ConnectionString = m_connectionString;
 		cmd->Connection = sqlCon;
 
-		cmd->CommandText = "delete from MyShop WHERE ID ='" + id + "';";
+		cmd->CommandText = "delete from " + m_database + " WHERE ID = '" + id + "'; ";
 
 		sqlCon->Open();
 		sqlReader = cmd->ExecuteReader();
